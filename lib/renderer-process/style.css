@@ -1,0 +1,54 @@
+* {
+    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,"sans-serif";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#clip-wrap {
+    margin: 10px 10px 0 10px;
+    height: 280px;
+}
+
+.clip-list {
+    vertical-align: top;
+    height: 280px;
+    width: auto;
+}
+
+.clip-item {
+    width: 280px;
+    height: 280px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    margin-right: 10px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    color: #333;
+    border: 2px solid transparent;
+}
+.clip-item.active {
+    border: 2px solid #2b5799;
+}
+.clip-item:last-child {
+    margin-right: 0;
+}
+.clip-item-inner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.clip-text {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    user-select: none;
+}
+.tip {
+    color: #333;
+    font-size: 12px;
+    margin-top: 5px;
+}

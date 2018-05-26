@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clipboard</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="text"></div>
+    <div id="clip-wrap">
+        <div class="clip-list" :style="{width: clipListWidth + 'px'}">
+            <div class="clip-item"
+                 @click="itemClick(clipText, index)"
+                 @dblclick="doubleClick(clipText, index)"
+                 :class="{active: index === activeIndex}"
+                 v-for="(clipText, index) in clipboardArr">
+                    <div class="clip-item-inner">
+                        <span class="clip-text">{{clipText}}</span>
+                    </div>
+            </div>
+        </div>
+        <p class="tip"
+           @dblclick="doubleClick(null, null)"
+        >选中你曾经复制的内容双击</p>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const GAP = 10;
+    const WIDTH = 280;
+    const SIDE_LEN = WIDTH + GAP;
+
+    const electron = require('electron');
+    const {ipcRenderer, clipboard} = electron;
+
+    let app = new Vue({
+        el: '#clip-wrap',
+        data: {
+            activeIndex: 0,
+            clipboardArr: []
+        },
+        computed: {
+            clipListWidth: function () {
+                return this.clipboardArr.length * SIDE_LEN;
+            }
+        },
+        methods: {
+            itemClick (clipText, index) {
+                this.activeIndex = index;
+                this.resetPos();
+            },
+            doubleClick (clipText, index) {
+                if (clipText !== null) {
+                    clipboard.writeText(clipText);
+                    new Notification('复制成功', {body: clipText});
+                }
+                ipcRenderer.send('clipboard-copy', clipText);
+                // setTimeout(() => {
+                //     window.close();
+                // }, 0);
+            },
+            resetPos () {
+                let docEle = document.documentElement;
+
+                let docWidth = docEle.clientWidth;
+                let scrollLeft = docEle.scrollLeft;
+                let rightWidth = (this.activeIndex+1) * SIDE_LEN;
+                let leftWidth = (this.activeIndex) * SIDE_LEN;
+
+                if (rightWidth > scrollLeft + docWidth) {
+                    docEle.scrollLeft = rightWidth - docWidth + GAP;
+                    return void 0;
+                }
+
+                if (leftWidth < scrollLeft) {
+                    docEle.scrollLeft = leftWidth;
+                    return void 0
+                }
+            }
+        },
+        beforeCreate () {
+            document.addEventListener('keydown', (e) => {
+                if (e.keyCode === 39) { // right
+                    this.activeIndex = this.activeIndex + 1 >= this.clipboardArr.length ? this.clipboardArr.length-1 : this.activeIndex + 1;
+                    e.preventDefault();
+                    this.resetPos();
+                } else if (e.keyCode === 37) { // left
+                    this.activeIndex = this.activeIndex - 1 <= 0 ? 0 : this.activeIndex - 1;
+                    e.preventDefault();
+                    this.resetPos();
+                }
+            }, false);
+        }
+    });
+
+    ipcRenderer.on('clipboard-data', (event, message) => {
+        console.log('in clipboard-data');
+        console.log(app.clipboardArr);
+        app.clipboardArr = message.reverse();
+    });
+</script>
+<script>
+    console.log('Interesting?\nContact https://github.com/geeknull/quick-clipboard');
+</script>
+</html>
