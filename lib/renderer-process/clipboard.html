@@ -48,19 +48,19 @@
             }
         },
         methods: {
-            itemClick (clipText, index) {
-                this.activeIndex = index;
-                this.resetPos();
-            },
-            doubleClick (clipText, index) {
+            sendText (clipText, index) {
                 if (clipText !== null) {
                     clipboard.writeText(clipText);
                     new Notification('复制成功', {body: clipText});
                 }
                 ipcRenderer.send('clipboard-copy', clipText);
-                // setTimeout(() => {
-                //     window.close();
-                // }, 0);
+            },
+            itemClick (clipText, index) {
+                this.activeIndex = index;
+                this.resetPos();
+            },
+            doubleClick (clipText, index) {
+                this.sendText(clipText, index);
             },
             resetPos () {
                 let docEle = document.documentElement;
@@ -91,6 +91,8 @@
                     this.activeIndex = this.activeIndex - 1 <= 0 ? 0 : this.activeIndex - 1;
                     e.preventDefault();
                     this.resetPos();
+                } else if (e.keyCode === 13) { // enter
+                    this.sendText(this.clipboardArr[this.activeIndex], this.activeIndex);
                 }
             }, false);
         }

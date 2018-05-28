@@ -1,11 +1,12 @@
 {
   "name": "quick-clipboard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
     "i": "npx npm-install-peers",
-    "demo": "electron ./demo/main.js"
+    "demo": "electron ./demo/main.js",
+    "app": "electron ./app/main.js"
   },
   "repository": {
     "type": "git",
