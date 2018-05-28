@@ -1,6 +1,6 @@
 # Quick Clipboard
 
-> Inspired by flexible(https://pasteapp.me/).
+> Inspired by paste (https://pasteapp.me/).
 
 It's a shortcut for manage your clipboard history.
 
