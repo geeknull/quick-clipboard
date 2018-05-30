@@ -1,3 +1,6 @@
+# 1.0.5
+- fix scroll compatibility
+
 # 1.0.4
 - fix show
 
