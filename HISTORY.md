@@ -1,3 +1,7 @@
+# 1.0.3
+- fix crash
+- fix empty string
+
 # 1.0.2
 - add standalone app
 - add enter select text

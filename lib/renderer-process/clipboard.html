@@ -24,7 +24,7 @@
         </div>
         <p class="tip"
            @dblclick="doubleClick(null, null)"
-        >选中你曾经复制的内容双击</p>
+        >最近的剪贴板</p>
     </div>
 </body>
 <script src="./vue.js"></script>
@@ -35,6 +35,8 @@
 
     const electron = require('electron');
     const {ipcRenderer, clipboard} = electron;
+    let options = require('electron').remote.getGlobal('options');
+    console.log(options);
 
     let app = new Vue({
         el: '#clip-wrap',
@@ -51,7 +53,9 @@
             sendText (clipText, index) {
                 if (clipText !== null) {
                     clipboard.writeText(clipText);
-                    new Notification('复制成功', {body: clipText});
+                    if (options.showNotification === true) {
+                        new Notification('复制成功', {body: clipText});
+                    }
                 }
                 ipcRenderer.send('clipboard-copy', clipText);
             },
