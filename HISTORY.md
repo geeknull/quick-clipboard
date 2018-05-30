@@ -1,3 +1,6 @@
+# 1.0.4
+- fix show
+
 # 1.0.3
 - fix crash
 - fix empty string

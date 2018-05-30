@@ -1,6 +1,6 @@
 {
   "name": "quick-clipboard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -8,6 +8,13 @@
     "demo": "electron ./demo/main.js",
     "app": "electron ./app/main.js"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "TODO.md",
+    "HISTORY.md",
+    ".editorconfig"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/geeknull/quick-clipboard"
