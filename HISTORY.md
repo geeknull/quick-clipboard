@@ -1,3 +1,7 @@
+# 1.0.7
+- add empty status
+- add clipboard log
+
 # 1.0.6
 - fix repetition text
 

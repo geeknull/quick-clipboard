@@ -10,7 +10,8 @@
 </head>
 <body>
     <div id="clip-wrap">
-        <div class="clip-list" :style="{width: clipListWidth + 'px'}">
+        <div v-if="clipboardArr.length <= 0" class="empty-status">当前剪贴板为空</div>
+        <div v-else class="clip-list" :style="{width: clipListWidth + 'px'}">
             <div class="clip-item"
                  @click="itemClick(clipText, index)"
                  @dblclick="doubleClick(clipText, index)"
