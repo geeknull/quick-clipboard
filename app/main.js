@@ -4,7 +4,9 @@ const {app, globalShortcut} = electron;
 const quickClipboard = require('../lib');
 
 app.on('ready', () => {
-  quickClipboard.init();
+  quickClipboard.init({
+    currentTickLog: true
+  });
   quickClipboard.show();
   globalShortcut.register('CommandOrControl+Shift+V', () => {
     quickClipboard.show();

@@ -3,3 +3,4 @@
 - image & file
 - repetition text replace
 - local file save text history
+- space char tip

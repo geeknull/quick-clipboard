@@ -25,7 +25,9 @@ function createWindow() {
 
 app.on('ready', () => {
   createWindow();
-  quickClipboard.init();
+  quickClipboard.init({
+    currentTickLog: true
+  });
   quickClipboard.show();
   globalShortcut.register('CommandOrControl+Shift+V', () => {
     quickClipboard.show();
