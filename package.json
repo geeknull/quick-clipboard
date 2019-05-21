@@ -26,6 +26,6 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "electron": "^2.0.2"
+    "electron": "^5.0.1"
   }
 }
